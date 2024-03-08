@@ -1,0 +1,364 @@
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+*                                    CHANGE_LOG_7.4.4                                                               *
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+
+****************************
+Les numéros indiqués ici (#000000) sont utilisés en interne par PMB Services pour son développement.
+
+*******************
+ANOMALIES
+
+----------
+Animations
+----------
+
+#125781 : Liste des valeurs de champs personnalisés
+Correction sur la récupération de la valeur par défaut.
+
+#125809 : Remplacement de motifs dans le mailing;Correction sur le remplacement de 3 motifs dans le mailing :
+- !!empr_auth_opac!!
+- !!empr_auth_opac_subscribe_link!!
+- !!empr_auth_opac_change_password_link!!
+
+#125831 : [Détail d'une animation] Animations liées
+Correction sur l'affichage des animations liées à partir du détail de l'animation.
+
+-----------
+Circulation
+-----------
+
+#126715 : [RFID] Bibliothéca : Ajout de l'état de la puce dans la rfid
+Dans la circulation, quand on lit une puce, on sait si l'antivol est actif ou pas.
+*
+------------
+Modélisation
+------------
+
+#127038 : [Contribution] Ajout d'un contrôle sur le champ code barre de l'exemplaire - Rajout d'un test Javascript en gestion/opac;On rajoute un test sur la présence ou non du champ.
+Cela évite une erreur javascript.
+
+----
+OPAC
+----
+
+#126035 : [Droits d'accès] Correction dans le calcul des profils utilisateurs des droits multiples;Avec l'ajout des droits multiples, le calcul des profils utilisateurs n'était pas correct quand il croisait plusieurs paramètres (ex : "catégorie de lecteur" / "localisation"). C'est corrigé
+
+#126839 : [Contribution] Ajout d'un contrôle sur le champ code barre de l'exemplaire
+Si on saisit un code barre qui est déjà présent en base, on n'intégrait pas la contribution.
+
+*******************
+EVOLUTIONS
+
+------
+Divers
+------
+
+#122568 : [contributions] ajout d'une propriété exemplaire vers notice
+Ajout d'une propriété RDF permettant d'ajouter des exemplaires dans le formulaire de contribution d'une notice
+
+#126572 : Ajout des classes de conversion en gestion
+Les classes de conversion sont utilisées pour transférer un entité PMB dans un store RDF.  
+
+#127832 : [Portail - FRBR] Ajout d'une source de données bulletins dans les notices
+Permet d'alimenter un cadre FRBR de notices avec la notice de bulletin à partir d'un de ses articles.
+
+----
+OPAC
+----
+
+#126067 : Affichage des facettes dans une modale;Nouveau paramètre pour activer cette fonctionnalité.
+Paramètre : opac_facettes_modal_activate
+
+#126885 : [Univers de recherche] Segment utilisant des valeurs dynamiques :  valeurs optionnelles + pas de mise en cache des résultats
+Pour les segments utilisant des valeurs dynamiques dans leur jeu de données, ces valeurs pourront être optionnelles : si elles ne sont pas renseignées, on en tient pas compte. De plus, pour ces segments, il n'y aura pas de mise cache des résultats de recherche (cache javascript), parce que justement les valeurs sont dynamiques.
+
+-------
+Portail
+-------
+
+#126665 : [Portail][Module] Possibilité de sélectionner plusieurs types d'évenement
+Possibilité de sélectionner plusieurs types d'événement dans le module liste d'animation > Source de données > Animation d'un ou plusieurs types d'événement
+
+
+
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+*                                    CHANGE_LOG_7.4.3                                                               *
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+
+Voir correctifs de la 7.3.12 dans le fichier changelogs73.txt dans le répertoire racine de PMB (ajoutez "73" dans l'URL de cette page !)
+
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+*                                    CHANGE_LOG_7.4.2                                                                *
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+
+
+*******************
+ANOMALIES
+
+
+----------
+Animations
+----------
+
+#120745 : [Animation] Correction éditorialisation - quotas
+- Quand on transforme une animation en article :
+> on récupère le commentaire pour mettre dans le résumé
+> on garde la mise en forme HTML défini dans les commentaires et dans la description
+> prise en compte de tinyMCE
+- Quotas :
+> correction dans le calcul des quotas internet et global
+> affichage OPAC : quotas Internet a la place de quotas global, et si plus de place internet disponible on affiche un message
+
+#123136 : [Animation] Correction de l'éditorialisation d'une animation
+On ne pouvait plus éditorialiser une animation, c'est corrigé.
+
+---------
+Catalogue
+---------
+
+#121332 : Affichage réduit par défaut des notices quand aucun template n'est défini
+
+-----------
+Circulation
+-----------
+
+#120852 : Génération des règles de mot de passe par défaut
+S'il n'y a pas de règle de mot de passe de définie, on applique pour le générateur de mot de passe. 
+Au moins : 6 caractères, 1 chiffre et une majuscule
+
+#120957 : Politique de changement de mot de passe - Prise en compte du fichier ext_auth.inc.php
+
+#122238 : [Fiche lecteur] Prolongation d'un prêt
+Correction de la prolongation par prêt dans la fiche lecteur.
+- La prolongation était soumise à la saisie dans le champ date
+- L'action de prolongation sur le bouton ne tenait pas compte de la saisie
+
+#124780 : [Fiche lecteur] Validité de l'email
+Modification de la regexp pour vérifier la validité de l'email, la précédente engendrait des blocages de page lorsque le mail n'était pas correctement formaté.
+
+------
+Divers
+------
+
+#120629 : Correction de l'indexation des autorités liées
+une autorité ne pouvait être indexée par des autorités liées du même type. C'est corrigé.
+
+#121154 : Politique de changement de mot de passe - Modification / Ajustement
+- En OPAC on ne peut plus saisir l'ancien mot de passe comme nouveau
+- Modification du nombre minimal qui compose la génération du mot de passe et la mise par défaut en base (au moins 12 caractères au lieu de 6)
+- Suppression de l'espace à la suite du mot de passe lors de l'envoi du mail
+- Modification du message : Le mot de passe lecteur doit être redéfini. -> Le lecteur doit redéfinir son mot de passe.
+
+#123041 : Correction de l'inclusion du fichier ARK 2
+Le fichier a été déplacé.
+
+#123062 : Correction de l'indexation des autorités liées entre autorités personnalisées
+une autorité perso ne pouvait être indexée par des autorités liées du même type. C'est corrigé.
+
+#124029 : [Contribution] Valeur par défaut pour le champ "Autre lien"
+
+----
+OPAC
+----
+
+#120641 : Correction de la pagination dans la visionneuse des segments de recherche
+
+#120742 : [Animation] Correction du statut par défaut a l'inscription en OPAC 
+Quand on s'inscrivait, on pouvait avoir un statut par défaut à 0 ce qui levait une erreur.
+
+#121139 : [OPAC - Univers] Tris après filtres ne s'appliquent pas
+En OPAC si on appliquait un tri après avoir appliqué une facette, on perdait la facette et on triait tous les résultats de la recherche. Ce souci a été corrigé.
+
+#122244 : Corrections diverses dans les contributions
+- champ "commentaire" des concepts : masqué
+- champ "en relation sémantique" des concepts : masqué
+- champ "autorité liée" : modification de l'ordre d'affichage des sélecteurs (type de lien / type d'autorité)
+
+#122451 : Correction des droits d'accès multiples quand on n'est pas connecté
+Depuis l'évolution des droits d'accès multiples, un bug empêchait d'avoir accès aux notices quand on n'était pas connecté. C'est corrigé
+
+#123323 : [Contribution] Correction quand on clique sur le bouton "Chercher" 
+Quand on ne saisit pas de valeur dans les champs de recherche, on met une "*" et on fait une recherche tous les champs.
+
+#123361 : [Sphinx] Correction dans la recherche des oeuvres en contribution
+
+#123626 : Correction dans la demande de changement de mot de passe
+Quand on faisait une demande de mot de passe oublié sans être connecté, on avait une erreur.
+C'est corrigé.
+
+#124033 : Contribution : ajout d'un contrôle supplémentaire sur les champs personnalisés de type "liste de choix" 
+Si les ordres ne sont pas renseignés, on fait en sorte de leur en donner un par défaut. 
+
+
+*******************
+EVOLUTIONS
+
+--------------
+Administration
+--------------
+
+#120934 : Suppression visibilite et ajout d'une valeur par defaut pour le parametre empr_password_enabled_rules
+
+#123131 : [Gestion des mots de passe] Ajout d'une alerte si présence d'une authentification externe
+Dans le menu de gestion des mots de passe pour les lecteurs, on prévient s'il y a une authentification externe.
+
+---------
+Autorités
+---------
+
+#125587 : Ajout de la liste des types de liens dans les oeuvres/expressions
+À la place d'avoir dans la prévisualisation d'une ?uvre/expression "Expression de" maintenant on liste les liens entre ?uvres/expressions.
+
+-----------
+Circulation
+-----------
+
+#120314 : Evolution dans l'envoi d'un mail avec le mot de passe lors d'une inscription ou d'une demande de mot de passe
+- Ajout d'un paramètre pour cocher par défaut l'envoi d'un mail a la création (empr_send_pwd_by_mail)
+- S'il n'y a pas de mail valide de renseigné la case est désactivée.
+
+------
+Divers
+------
+
+#120946 : Déclenchement de l'indexation de la notice à l'ajout, modification ou suppression d'un document numérique
+
+#121324 : [OPAC - Univers] Ajout d'un onglet de recherche de périodiques dans les recherches sur les univers
+Ajout de la possibilité d'afficher en recherche sur les univers l'onglet de recherche sur les périodiques. Cela se paramètre dans le paramétrage de l'univers, en cochant la case "Activer la recherche sur les périodiques"
+
+#121820 :  Ne plus afficher le champ expression régulière dans la génération des règles de mot de passe
+
+#122801 : [Contributions] Ajout de l'ordre des champs persos de liste dans les formulaires
+Une propriété rdf "order" a été ajoutée afin de conserver et réafficher l'ordre des éléments de champs perso de liste tels que définis dans le paramétrage de l'ordre du champ.
+
+#123666 : [contributions] Ajout d'un lookup h2o pour compter les contributions d'un utilisateur
+Ajout d'un lookup retournant un tableau contenant le compteur de contributions en cours, en attente de validation et validées pour un utilisateur.
+
+------------
+Modélisation
+------------
+
+#122292 : [Contribution] Ajout la possibilité d'ordonner les réponses à afficher en OPAC
+On peut mettre un ordre sur les formulaires et sur les scénarios.
+
+----
+OPAC
+----
+
+#120343 : Droits d'accès : possibilité d'avoir des rôles multiples pour les emprunteurs
+Si on calcule les rôles des emprunteurs par rapport à une propriété multiple (ex : localisation), les droits d'accès sont calculés en fonction du rôle le plus permissif.
+
+#120624 : [contributions] possibilité de passer un paramètre dans la shorturl pour accéder à un formulaire de contribution
+On ajoute un paramètre 'from_record' permettant de savoir si l'utilisateur provient d'une page de notice dans le formulaire de contribution. Utilisé par le PAM notamment.
+
+#121223 : [Univers de recherche] Ajout de la recherche par Année
+Maintenant on peut chercher soit par date (jj/mm/aaaa) ou par année (aaaa)
+Par défaut dans pmb on cherche sur la date.
+Par exemple : 
+On peut substituer le fichier "/opac_css/includes/search_queries/search_universes_fields.xml" en modifiant le type "date" par type "text" pour avoir une recherche par année.
+
+#122838 : [Contributions] ajout des autorités liées
+On peut désormais contribuer sur les autorités liées.
+
+-------
+Portail
+-------
+
+#123215 : Optimisations du Portail
+* Mise en cache de l'arbre des rubriques pour éviter d'aller le calculer à chaque fois
+* Changement d'approche dans les filtres sur valeurs de CP dans le contenu éditorial, on requete directement plutot qu'utiliser les classes
+* Dans la vue en carousel responsive de notices, on s'assure de ne pas charger de données pour rien. 
+
+#123510 : Ajout d'un tag et d'un filtre H2O pour les contributions
+Filtre H2O :
+{% if "identifiant" | check_right "domaine" "dom_id"
+ %}
+{%endif%}
+Tag H2O :
+Example renvoi le nombre de contribution brouillon d'un emprunteur
+{% sparqlcontribution variable %}
+    SELECT (COUNT(?s) AS ?counter) WHERE {
+        ?s <http://www.pmbservices.fr/ontology#has_contributor> '407' .
+        ?s <http://www.pmbservices.fr/ontology#is_draft> ?o .
+    }
+{% endsparqlcontribution %}
+
+----
+RFID
+----
+
+#124630 : [RFID] Ajout du driver bibliothéca
++Informations de paramétrage :+
+rfid_afi_security_codes		true,false	
+rfid_driver			bibliotheca	
+rfid_serveur_url		http://localhost:21645/
+
+- En mode 0 / 1
++Catalogue+
+> Programmer une étiquette et activer l'antivol (Nombre de pièce 1) 
++Circulation+
+> Programmer une étiquette / carte lecteur
+
+
+- En mode 0 :
++Circulation+
+> Lecture de l'étiquette / carte lecteur
+> Prêt d'un seul exemplaire avec désactivation de l'antivol
+> Activer / Désactiver l'antivol
+> Retour d'un exemplaire avec réactivation de l'antivol
+
+
+- En mode 1 :
++Circulation+
+> Lecture des étiquettes / carte lecteur
+> Prêt de plusieurs exemplaires avec désactivation de l'antivol
+> Activer / Désactiver l'antivol
+> Retour de plusieurs exemplaires avec réactivation de l'antivol
+
+
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+*                                    CHANGE_LOG_7.4.1                                                                *
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+
+
+Voir sur le site www.sigb.net :
+Nouveautés : https://www.sigb.net/site/version7-4/nouveautes_7-4.pdf
+Améliorations : https://www.sigb.net/site/version7-4/ameliorations_7-4.pdf
+
+
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+*                                    CHANGE_LOG_7.3.14                                                                *
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+************************************************************************************************************************
+
+
+Voir le fichier changelogs73.txt dans le répertoire racine de PMB (ajoutez "73" dans l'URL de cette page !)
